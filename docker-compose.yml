@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  odoo:
+    build: .
+    container_name: odoo17
+    depends_on:
+      - db
+    ports:
+      - "8090:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./config/odoo.conf:/etc/odoo.conf
+    command: ["--config=/etc/odoo.conf"]
+    networks:
+      - odoo-net
+
+  db:
+    image: postgres:15
+    container_name: odoo17-db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - odoo-net
+
+volumes:
+  odoo-data:
+  db-data:
+
+networks:
+  odoo-net:
