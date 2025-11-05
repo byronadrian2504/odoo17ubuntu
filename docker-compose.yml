@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   odoo:
     build: .
@@ -15,7 +14,7 @@ services:
     command: ["--config=/etc/odoo.conf"]
     networks:
       - odoo-net
-
+      
   db:
     image: postgres:15
     container_name: odoo17-db
@@ -27,10 +26,26 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - odoo-net
+      
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - odoo-net
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   odoo-data:
   db-data:
+  pgadmin-data:
 
 networks:
   odoo-net:
