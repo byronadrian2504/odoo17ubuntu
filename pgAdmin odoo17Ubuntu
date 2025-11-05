@@ -1,0 +1,25 @@
+Accede a pgAdmin:
+
+URL: http://localhost:5050
+Email: admin@admin.com
+Password: admin
+
+Para conectar a tu base de datos en pgAdmin:
+
+Clic derecho en "Servers" → "Register" → "Server"
+General tab:
+
+Name: Odoo17
+
+
+Connection tab:
+
+Host name/address: db
+Port: 5432
+Maintenance database: postgres
+Username: odoo
+Password: odoo
+Save password: ✓ (marca el check)
+
+
+Clic en "Save"
